@@ -2,6 +2,7 @@ package com.example.bpdts.BPDTSTEST.models;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name="users")
 public class User {
@@ -36,6 +37,10 @@ public class User {
             this.latitude = latitude;
             this.longitude = longitude;
         }
+
+        public User() {
+
+        };
 
         public Long getId() {
             return id;
