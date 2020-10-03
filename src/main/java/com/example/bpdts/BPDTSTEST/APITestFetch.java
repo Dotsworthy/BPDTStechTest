@@ -1,5 +1,8 @@
 package com.example.bpdts.BPDTSTEST;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -38,12 +41,26 @@ public class APITestFetch {
                 }
                 reader.close();
             }
-            System.out.println(responseContent.toString());
+//            System.out.println(responseContent.toString());
+            parse(responseContent.toString());
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String parse(String responseBody) {
+        JSONArray users = new JSONArray(responseBody);
+        for (int i = 0; i < users.length(); i++) {
+            JSONObject user = users.getJSONObject(i);
+            int id = user.getInt("id");
+//            int userId = user.getInt("userId");
+            String firstName = user.getString("first_name");
+            System.out.println(id + " " + firstName);
+        }
+        return null;
     }
 
 }
