@@ -20,5 +20,8 @@ public class UserTest {
         assertEquals("Andrew", user.getFirstName());
     }
 
-
+    @Test
+    public void canGetLastName() {
+        assertEquals("Watson", user.getLastName());
+    }
 }
