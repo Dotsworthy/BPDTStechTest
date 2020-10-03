@@ -7,10 +7,10 @@ public class User {
         private String lastName;
         private String email;
         private String ipAddress;
-        private int latitude;
-        private int longitude;
+        private double latitude;
+        private double longitude;
 
-        public User(String firstName, String lastName, String email, String ipAddress, int latitude, int longitude) {
+        public User(String firstName, String lastName, String email, String ipAddress, double latitude, double longitude) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.email =  email;
