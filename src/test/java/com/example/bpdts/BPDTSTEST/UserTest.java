@@ -24,4 +24,9 @@ public class UserTest {
     public void canGetLastName() {
         assertEquals("Watson", user.getLastName());
     }
+
+    @Test
+    public void canGetEmail() {
+        assertEquals("awatson.work@gmail.com", user.getEmail());
+    }
 }
