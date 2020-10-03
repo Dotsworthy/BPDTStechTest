@@ -1,7 +1,13 @@
 package com.example.bpdts.BPDTSTEST;
 
+import com.example.bpdts.BPDTSTEST.models.User;
+import com.example.bpdts.BPDTSTEST.repositories.UserRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,11 +16,22 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class APITestFetch {
+
+    @Autowired
+    UserRepository userRepository;
 
     public static HttpURLConnection connection;
 
     public static void main(String[] args) {
+        APITestFetch apiTestFetch = new APITestFetch();
+        apiTestFetch.getApi();
+    }
+
+    public void getApi() {
         BufferedReader reader;
         String line;
         StringBuffer responseContent = new StringBuffer ();
@@ -51,16 +68,23 @@ public class APITestFetch {
         }
     }
 
-    public static String parse(String responseBody) {
+    public void parse(String responseBody) {
         JSONArray users = new JSONArray(responseBody);
         for (int i = 0; i < users.length(); i++) {
             JSONObject user = users.getJSONObject(i);
             int id = user.getInt("id");
-//            int userId = user.getInt("userId");
             String firstName = user.getString("first_name");
-            System.out.println(id + " " + firstName);
-        }
-        return null;
-    }
+            String lastName = user.getString("last_name");
+            String email = user.getString("email");
+            String ipAddress = user.getString("ip_address");
+            double latitude = user.getDouble("latitude");
+            double longitude = user.getDouble("longitude");
 
+            User api = new User(firstName, lastName, email, ipAddress, latitude, longitude);
+
+            userRepository.save(api);
+
+        }
+//        return null;
+    }
 }
