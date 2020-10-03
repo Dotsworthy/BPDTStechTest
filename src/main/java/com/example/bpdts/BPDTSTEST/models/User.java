@@ -31,4 +31,16 @@ public class User {
         public String getEmail() {
             return email;
         }
+
+        public String getIpAddress() {
+                return ipAddress;
+        }
+
+    public double getLatitude() {
+            return latitude;
+    }
+
+    public double getLongitude() {
+            return longitude;
+    }
 }

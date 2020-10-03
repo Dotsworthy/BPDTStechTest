@@ -29,4 +29,19 @@ public class UserTest {
     public void canGetEmail() {
         assertEquals("awatson.work@gmail.com", user.getEmail());
     }
+
+    @Test
+    public void canGetIpAddress() {
+        assertEquals("1.234.567.89", user.getIpAddress());
+    }
+
+    @Test
+    public void canGetLatitude() {
+        assertEquals(55.1270, user.getLatitude(), 0);
+    }
+
+    @Test
+    public void canGetLongitude() {
+        assertEquals(1.5103, user.getLongitude(), 0);
+    }
 }
