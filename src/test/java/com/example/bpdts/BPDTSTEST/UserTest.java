@@ -44,4 +44,5 @@ public class UserTest {
     public void canGetLongitude() {
         assertEquals(1.5103, user.getLongitude(), 0);
     }
+
 }
