@@ -89,4 +89,17 @@ public class CreateAPI implements ApplicationRunner {
         }
 
     }
+
+    public void parseUsersByProximity(String responseBody) {
+        JSONArray users = new JSONArray(responseBody);
+        for (int i = 0; i < users.length(); i++) {
+            JSONObject user = users.getJSONObject(i);
+            String firstName = user.getString("first_name");
+            String lastName = user.getString("last_name");
+            String email = user.getString("email");
+            String ipAddress = user.getString("ip_address");
+            double latitude = user.getDouble("latitude");
+            double longitude = user.getDouble("longitude");
+        }
+    }
 }
