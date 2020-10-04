@@ -19,21 +19,27 @@ import java.net.URL;
 @Component
 public class CreateAPI implements ApplicationRunner {
 
+    public CreateAPI() throws MalformedURLException {
+    }
+
     public void run(ApplicationArguments args) {
-        getApi();
+        getApi("London", urlLondon);
     }
 
     @Autowired
     UserRepository userRepository;
 
+    URL urlLondon = new URL("https://bpdts-test-app-v3.herokuapp.com/city/London/users");
+    URL urlAllUsers = new URL("https://bpdts-test-app-v3.herokuapp.com/users");
+
     public static HttpURLConnection connection;
 
-    public void getApi() {
+    public void getApi(String apiLocation, URL url) {
         BufferedReader reader;
         String line;
         StringBuffer responseContent = new StringBuffer ();
         try {
-            URL url = new URL("https://bpdts-test-app-v3.herokuapp.com/city/London/users");
+//            URL url = new URL("https://bpdts-test-app-v3.herokuapp.com/city/London/users");
             connection = (HttpURLConnection) url.openConnection();
 
             connection.setRequestMethod("GET");
@@ -50,12 +56,12 @@ public class CreateAPI implements ApplicationRunner {
                 reader.close();
             } else {
                 reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                while((line = reader.readLine()) !=null) {
+                while ((line = reader.readLine()) != null) {
                     responseContent.append(line);
                 }
                 reader.close();
             }
-            parse(responseContent.toString());
+            parseLondoners(responseContent.toString());
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -64,11 +70,11 @@ public class CreateAPI implements ApplicationRunner {
         }
     }
 
-    public void parse(String responseBody) {
+    public void parseLondoners(String responseBody) {
         JSONArray users = new JSONArray(responseBody);
         for (int i = 0; i < users.length(); i++) {
             JSONObject user = users.getJSONObject(i);
-            int id = user.getInt("id");
+//            int id = user.getInt("id");
             String firstName = user.getString("first_name");
             String lastName = user.getString("last_name");
             String email = user.getString("email");
