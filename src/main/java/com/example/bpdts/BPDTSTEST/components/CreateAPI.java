@@ -16,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Component
 public class CreateAPI implements ApplicationRunner {
@@ -26,12 +27,12 @@ public class CreateAPI implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         getApi("London", urlLondon);
         getApi("ArrayList", urlAllUsers);
-//        getUsers(filteredUsers);
+        getUsers(filteredUsers);
     }
 
     @Autowired
     UserRepository userRepository;
-    ArrayList<JSONObject> filteredUsers = new ArrayList<JSONObject>();
+    ArrayList<Integer> filteredUsers = new ArrayList<Integer>();
 
     URL urlLondon = new URL("https://bpdts-test-app-v3.herokuapp.com/city/London/users");
     URL urlAllUsers = new URL("https://bpdts-test-app-v3.herokuapp.com/users");
@@ -82,19 +83,21 @@ public class CreateAPI implements ApplicationRunner {
         }
     }
 
-//    public void getUsers(ArrayList arrayList) {
-//        arrayList.forEach(e -> {
-//            int userId = e.getInt("id");
-//            String output = String.format("https://bpdts-test-app-v3.herokuapp.com/user/%s", userId);
-//            URL userURL = null;
-//            try {
-//                userURL = new URL(output);
-//            } catch (MalformedURLException malformedURLException) {
-//                malformedURLException.printStackTrace();
-//            }
-//            getApi("User", userURL);
-//        });
-//    }
+    public void getUsers(ArrayList arrayList) {
+        arrayList.forEach(e -> {
+            System.out.println(e);
+            int userId = (int) e;
+            String output = String.format("https://bpdts-test-app-v3.herokuapp.com/user/%s", userId);
+            URL userURL = null;
+            try {
+                userURL = new URL(output);
+            } catch (MalformedURLException malformedURLException) {
+                malformedURLException.printStackTrace();
+            }
+            getApi("User", userURL);
+        });
+    }
+
 
     public void parseLondoners(String responseBody) {
         JSONArray users = new JSONArray(responseBody);
@@ -119,22 +122,14 @@ public class CreateAPI implements ApplicationRunner {
         JSONArray users = new JSONArray(responseBody);
         for (int i = 0; i < users.length(); i++) {
             JSONObject user = users.getJSONObject(i);
-            int id = user.getInt("id");
-//            String firstName = user.getString("first_name");
-//            String lastName = user.getString("last_name");
-//            String email = user.getString("email");
-//            String ipAddress = user.getString("ip_address");
+            int userId = user.getInt("id");
             double latitude = user.getDouble("latitude");
             double longitude = user.getDouble("longitude");
-//            String city = "not London";
 
             if (latitude >= 50.6374 && latitude <= 52.3774 && longitude >= -0.7122 && longitude <= 0.9978) {
-               filteredUsers.add(user);
-//                User api = new User(firstName, lastName, email, ipAddress, latitude, longitude, city);
-//                userRepository.save(api);
+               filteredUsers.add(userId);
             }
         }
-//        System.out.println(filteredUsers);
     }
 
     public void parseUser(String responseBody) {
