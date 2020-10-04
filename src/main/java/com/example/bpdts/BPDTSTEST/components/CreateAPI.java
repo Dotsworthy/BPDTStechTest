@@ -16,7 +16,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 @Component
 public class CreateAPI implements ApplicationRunner {
@@ -37,6 +36,8 @@ public class CreateAPI implements ApplicationRunner {
     URL urlLondon = new URL("https://bpdts-test-app-v3.herokuapp.com/city/London/users");
     URL urlAllUsers = new URL("https://bpdts-test-app-v3.herokuapp.com/users");
 
+    Double londonLatitude = getRadians(51.5074);
+    Double londonLongitude = getRadians(0.1278);
 
     public static HttpURLConnection connection;
 
@@ -85,7 +86,6 @@ public class CreateAPI implements ApplicationRunner {
 
     public void getUsers(ArrayList arrayList) {
         arrayList.forEach(e -> {
-            System.out.println(e);
             int userId = (int) e;
             String output = String.format("https://bpdts-test-app-v3.herokuapp.com/user/%s", userId);
             URL userURL = null;
@@ -98,12 +98,22 @@ public class CreateAPI implements ApplicationRunner {
         });
     }
 
+    double getDistance(double latitude1, double longitude1, double latitude2, double longitude2) {
+        return 6371 * Math.acos(
+                Math.sin(latitude1) * Math.sin(latitude2)
+                + Math.cos(latitude1) * Math.cos(latitude2) * Math.cos(longitude2 - longitude1)
+        );
+    }
+
+    double getRadians(double degree) {
+        return degree * (Math.PI / 180);
+    }
+
 
     public void parseLondoners(String responseBody) {
         JSONArray users = new JSONArray(responseBody);
         for (int i = 0; i < users.length(); i++) {
             JSONObject user = users.getJSONObject(i);
-//            int id = user.getInt("id");
             String firstName = user.getString("first_name");
             String lastName = user.getString("last_name");
             String email = user.getString("email");
@@ -126,7 +136,13 @@ public class CreateAPI implements ApplicationRunner {
             double latitude = user.getDouble("latitude");
             double longitude = user.getDouble("longitude");
 
-            if (latitude >= 50.6374 && latitude <= 52.3774 && longitude >= -0.7122 && longitude <= 0.9978) {
+            double radianLatitude = getRadians(latitude);
+            double radianLongitude = getRadians(longitude);
+
+            double distance = getDistance(londonLatitude, londonLongitude, radianLatitude, radianLongitude);
+            System.out.println(distance);
+
+            if (distance >= 1685.1769633508) {
                filteredUsers.add(userId);
             }
         }
