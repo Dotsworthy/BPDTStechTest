@@ -19,17 +19,12 @@ import java.net.URL;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class APITestFetch {
+public class CreateAPI {
 
     @Autowired
     UserRepository userRepository;
 
     public static HttpURLConnection connection;
-
-    public static void main(String[] args) {
-        APITestFetch apiTestFetch = new APITestFetch();
-        apiTestFetch.getApi();
-    }
 
     public void getApi() {
         BufferedReader reader;
