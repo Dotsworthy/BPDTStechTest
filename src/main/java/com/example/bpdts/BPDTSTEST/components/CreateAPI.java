@@ -75,8 +75,9 @@ public class CreateAPI implements ApplicationRunner {
             String ipAddress = user.getString("ip_address");
             double latitude = user.getDouble("latitude");
             double longitude = user.getDouble("longitude");
+            String city = "London";
 
-            User api = new User(firstName, lastName, email, ipAddress, latitude, longitude);
+            User api = new User(firstName, lastName, email, ipAddress, latitude, longitude, city);
 
             userRepository.save(api);
         }

@@ -29,13 +29,17 @@ public class User {
         @Column(name = "longitude")
         private double longitude;
 
-        public User(String firstName, String lastName, String email, String ipAddress, double latitude, double longitude) {
+        @Column(name = "City")
+        private String city;
+
+        public User(String firstName, String lastName, String email, String ipAddress, double latitude, double longitude, String city) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.email =  email;
             this.ipAddress = ipAddress;
             this.latitude = latitude;
             this.longitude = longitude;
+            this.city = city;
         }
 
         public User() {
@@ -73,4 +77,6 @@ public class User {
         public double getLongitude() {
                 return longitude;
         }
+
+        public String getCity() { return city;}
 }

@@ -21,7 +21,7 @@ class BpdtstestApplicationTests {
 
 	@Test
 	public void createUser() {
-		User andrew = new User("Andrew", "Watson", "awatson.work@gmail.com", "1.234.567.89", 55.1270, 1.5103);
+		User andrew = new User("Andrew", "Watson", "awatson.work@gmail.com", "1.234.567.89", 55.1270, 1.5103, "London");
 		userRepository.save(andrew);
 	}
 }

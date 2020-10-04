@@ -12,7 +12,7 @@ public class UserTest {
 
     @Before
     public void setUp() {
-        user = new User ("Andrew", "Watson", "awatson.work@gmail.com", "1.234.567.89", 55.1270, 1.5103);
+        user = new User ("Andrew", "Watson", "awatson.work@gmail.com", "1.234.567.89", 55.1270, 1.5103, "London");
     }
 
     @Test
@@ -45,4 +45,6 @@ public class UserTest {
         assertEquals(1.5103, user.getLongitude(), 0);
     }
 
+    @Test
+    public void canGetCity() { assertEquals("London", user.getCity());}
 }
