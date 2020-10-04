@@ -26,7 +26,7 @@ public class CreateAPI implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         getApi("London", urlLondon);
         getApi("ArrayList", urlAllUsers);
-
+//        getUsers(filteredUsers);
     }
 
     @Autowired
@@ -71,7 +71,7 @@ public class CreateAPI implements ApplicationRunner {
             } else if (getType == "ArrayList") {
                 parseUsersByProximity(responseContent.toString());
             } else if (getType == "User") {
-                return;
+                parseUser(responseContent.toString());
             }
 
 
@@ -81,6 +81,20 @@ public class CreateAPI implements ApplicationRunner {
             e.printStackTrace();
         }
     }
+
+//    public void getUsers(ArrayList arrayList) {
+//        arrayList.forEach(e -> {
+//            int userId = e.getInt("id");
+//            String output = String.format("https://bpdts-test-app-v3.herokuapp.com/user/%s", userId);
+//            URL userURL = null;
+//            try {
+//                userURL = new URL(output);
+//            } catch (MalformedURLException malformedURLException) {
+//                malformedURLException.printStackTrace();
+//            }
+//            getApi("User", userURL);
+//        });
+//    }
 
     public void parseLondoners(String responseBody) {
         JSONArray users = new JSONArray(responseBody);
@@ -105,13 +119,14 @@ public class CreateAPI implements ApplicationRunner {
         JSONArray users = new JSONArray(responseBody);
         for (int i = 0; i < users.length(); i++) {
             JSONObject user = users.getJSONObject(i);
-            String firstName = user.getString("first_name");
-            String lastName = user.getString("last_name");
-            String email = user.getString("email");
-            String ipAddress = user.getString("ip_address");
+            int id = user.getInt("id");
+//            String firstName = user.getString("first_name");
+//            String lastName = user.getString("last_name");
+//            String email = user.getString("email");
+//            String ipAddress = user.getString("ip_address");
             double latitude = user.getDouble("latitude");
             double longitude = user.getDouble("longitude");
-            String city = "not London";
+//            String city = "not London";
 
             if (latitude >= 50.6374 && latitude <= 52.3774 && longitude >= -0.7122 && longitude <= 0.9978) {
                filteredUsers.add(user);
@@ -119,12 +134,11 @@ public class CreateAPI implements ApplicationRunner {
 //                userRepository.save(api);
             }
         }
+//        System.out.println(filteredUsers);
     }
 
     public void parseUser(String responseBody) {
-        JSONArray users = new JSONArray(responseBody);
-        for (int i = 0; i < users.length(); i++) {
-            JSONObject user = users.getJSONObject(i);
+            JSONObject user = new JSONObject(responseBody);
             String firstName = user.getString("first_name");
             String lastName = user.getString("last_name");
             String email = user.getString("email");
@@ -137,6 +151,6 @@ public class CreateAPI implements ApplicationRunner {
                 User api = new User(firstName, lastName, email, ipAddress, latitude, longitude, city);
                 userRepository.save(api);
             }
-        }
+
     }
 }
