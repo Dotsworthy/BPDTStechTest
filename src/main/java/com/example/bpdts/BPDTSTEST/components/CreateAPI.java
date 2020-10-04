@@ -1,13 +1,13 @@
-package com.example.bpdts.BPDTSTEST;
+package com.example.bpdts.BPDTSTEST.components;
 
 import com.example.bpdts.BPDTSTEST.models.User;
 import com.example.bpdts.BPDTSTEST.repositories.UserRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,10 +16,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+@Component
+public class CreateAPI implements ApplicationRunner {
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class CreateAPI {
+    public void run(ApplicationArguments args) {
+        getApi();
+    }
 
     @Autowired
     UserRepository userRepository;
@@ -53,7 +55,6 @@ public class CreateAPI {
                 }
                 reader.close();
             }
-//            System.out.println(responseContent.toString());
             parse(responseContent.toString());
 
         } catch (MalformedURLException e) {
@@ -78,8 +79,7 @@ public class CreateAPI {
             User api = new User(firstName, lastName, email, ipAddress, latitude, longitude);
 
             userRepository.save(api);
-
         }
-//        return null;
+
     }
 }
