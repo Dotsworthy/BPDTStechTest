@@ -2,7 +2,6 @@ package com.example.bpdts.BPDTSTEST.repositories;
 
 import com.example.bpdts.BPDTSTEST.models.User; // NEW
 import org.springframework.data.jpa.repository.JpaRepository; // NEW
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
