@@ -3,7 +3,7 @@ Test App that takes all users from BPTDS test API and creates a new API, contain
 
 To Run:
 
-Run BPDTSTestApplication from main/java/com.example.bpdts.BPDTSTEST
+Run BpdtstestApplication from main/java/com.example.bpdts.BPDTSTEST
 
 Routes:
 
