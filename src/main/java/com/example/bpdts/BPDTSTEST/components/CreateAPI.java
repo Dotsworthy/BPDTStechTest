@@ -50,8 +50,8 @@ public class CreateAPI implements ApplicationRunner {
             connection = (HttpURLConnection) url.openConnection();
 
             connection.setRequestMethod("GET");
-//            connection.setConnectTimeout(5000);
-//            connection.setReadTimeout(5000);
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
 
             int status = connection.getResponseCode();
 
@@ -140,9 +140,8 @@ public class CreateAPI implements ApplicationRunner {
             double radianLongitude = getRadians(longitude);
 
             double distance = getDistance(londonLatitude, londonLongitude, radianLatitude, radianLongitude);
-            System.out.println(distance);
 
-            if (distance >= 1685.1769633508) {
+            if (distance <= 96) {
                filteredUsers.add(userId);
             }
         }
