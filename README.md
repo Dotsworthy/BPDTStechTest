@@ -1,9 +1,9 @@
 # BPDTStechTest
-Test App for creating an API in Java
+Test App that takes all users from BPTDS test API and creates a new API, containing all users from BPDTS API that either live in London or coordinates are 60 miles from London.
 
 To Run:
 
-Run BPDTSTestApplication
+Run BPDTSTestApplication from main/java/com.example.bpdts.BPDTSTEST
 
 Routes:
 
