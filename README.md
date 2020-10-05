@@ -1,11 +1,11 @@
 # BPDTStechTest
 Test App for creating an API in Java
 
-# To Run:
+To Run:
 
 Run BPDTSTestApplication
 
-# Routes:
+Routes:
 
 localhost:8080/users - Fetch all users
 
