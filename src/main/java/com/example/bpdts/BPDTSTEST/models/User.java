@@ -2,7 +2,6 @@ package com.example.bpdts.BPDTSTEST.models;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name="users")
 public class User {
@@ -42,17 +41,11 @@ public class User {
             this.city = city;
         }
 
-        public User() {
+        public User() {};
 
-        };
+        public Long getId() { return id; }
 
-        public Long getId() {
-            return id;
-        }
-
-        public void setId(Long id) {
-            this.id = id;
-        }
+        public void setId(Long id) { this.id = id; }
 
         public String getFirstName() {
             return firstName;

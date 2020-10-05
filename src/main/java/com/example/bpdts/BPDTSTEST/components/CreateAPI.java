@@ -46,7 +46,6 @@ public class CreateAPI implements ApplicationRunner {
         String line;
         StringBuffer responseContent = new StringBuffer ();
         try {
-//            URL url = new URL("https://bpdts-test-app-v3.herokuapp.com/city/London/users");
             connection = (HttpURLConnection) url.openConnection();
 
             connection.setRequestMethod("GET");
